@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        content {
+            width: 100%;
+            float: left;
+        }
+
+        table {
+            width: 50%;
+            margin: auto;
+            border: 2px solid black;
+            background-color: #b2dbff;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 10px 10px;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header style="text-align: center; background-color: azure;">
+        <h1>Competition Scores</h1>
+    </header>
+    <content>
+        <table>
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>Average</th>
+            </tr>
+            <tr>
+                <th>Dolphins</th>
+                <td contenteditable="true" id="dol1"></td>
+                <td contenteditable="true" id="dol2"></td>
+                <td contenteditable="true" id="dol3"></td>
+                <td><label for="" id="Average1"></label></td>
+            </tr>
+            <tr>
+                <th>Koalas</th>
+                <td contenteditable="true" id="koa1"></td>
+                <td contenteditable="true" id="koa2"></td>
+                <td contenteditable="true" id="koa3"></td>
+                <td><label for="" id="Average2"></label></td>
+            </tr>
+        </table>
+    </content>
+    <footer>
+        <div id="footer" style="text-align: center; background-color: azure;">
+            <button onclick="calculateAverage()" style="width: auto; height: 30px;">Calculate Average</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+    </footer>
+
+
+    <script>
+        function calculateAverage() {
+            var dol1 = parseFloat(document.getElementById("dol1").textContent);
+            var dol2 = parseFloat(document.getElementById("dol2").textContent);
+            var dol3 = parseFloat(document.getElementById("dol3").textContent);
+            var avgDol = (dol1 + dol2 + dol3) / 3;
+            document.getElementById("Average1").innerText = avgDol.toFixed(2);
+
+            var koa1 = parseFloat(document.getElementById("koa1").textContent);
+            var koa2 = parseFloat(document.getElementById("koa2").textContent);
+            var koa3 = parseFloat(document.getElementById("koa3").textContent);
+            var avgKoa = (koa1 + koa2 + koa3) / 3;
+            document.getElementById("Average2").innerText = avgKoa.toFixed(2);
+
+            if (avgDol < 100 && avgKoa < 100) {
+                console.log("No one wins the trophy");
+            } else if (avgDol >= 100 && avgKoa < 100) {
+                console.log("Dolphins win a trophy");
+            } else if (avgKoa >= 100 && avgDol < 100) {
+                console.log("Koalas win a trophy");
+            } else if (avgDol > avgKoa) {
+                console.log("Dolphins win a trophy");
+            } else if (avgKoa > avgDol) {
+                console.log("Koalas win a trophy");
+            } else {
+                console.log("Both win a trophy");
+            }
+
+        }
+        function reset() {
+            document.getElementById("dol1").innerText = "";
+            document.getElementById("dol2").innerText = "";
+            document.getElementById("dol3").innerText = "";
+            document.getElementById("Average1").innerText = "";
+
+            document.getElementById("koa1").innerText = "";
+            document.getElementById("koa2").innerText = "";
+            document.getElementById("koa3").innerText = "";
+            document.getElementById("Average2").innerText = "";
+        }
+    </script>
+
+</body>
+
+</html>
