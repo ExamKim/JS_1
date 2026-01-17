@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        content {
+            width: 100%;
+            float: left;
+        }
+
+        table {
+            margin: auto;
+            border: 2px solid black;
+            background-color: #b2dbff;
+            text-align: center;
+        }
+
+        th,
+        td {
+            width: 200px;
+            padding: 10px 10px;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <content>
+        <table>
+            <tr>
+                <th colspan="3">
+                    <h1>Tip Calculator</h1>
+                </th>
+            </tr>
+
+            <tr>
+                <th colspan="3">
+                    Bills (comma separated):
+                    <div contenteditable="true" id="bill" style="border:1px solid #000; background:#fff; padding:5px;">
+                        22, 295, 176, 440, 37, 105, 10, 1100, 86, 52
+                    </div>
+                </th>
+            </tr>
+
+            <tr>
+                <th>Bill</th>
+                <th>Tip</th>
+                <th>Total</th>
+            </tr>
+
+            <tbody id="result"></tbody>
+
+            <tr>
+                <th colspan="2">Average Total</th>
+                <td id="average"></td>
+            </tr>
+
+            <tr>
+                <th colspan="3">
+                    <button onclick="calculate()">Calculate</button>
+                </th>
+            </tr>
+        </table>
+
+
+    </content>
+
+
+    <script>
+
+        function calcTip(bill) {
+            return (bill >= 50 && bill <= 300) ? bill * 0.15 : bill * 0.20;
+        }
+
+        function calculate() {
+            let tips = [];
+            let totals = [];
+            let result = "";
+            const input = document.getElementById("bill").innerText;
+            const bills = input.split(",").map(b => parseFloat(b.trim())).filter(b => !isNaN(b));
+            for (let i = 0; i < bills.length; i++) {
+                const tip = calcTip(bills[i]);
+                tips.push(tip);
+                totals.push(bills[i] + tip);
+                result += `   
+                <tr>
+                    <td>${bills[i]}</td>
+                    <td>${tip.toFixed(2)}</td>
+                    <td>${totals[i].toFixed(2)}</td>
+                </tr>`;
+            }
+
+            document.getElementById("result").innerHTML = result;
+
+            console.log("Bills: " + bills);
+            console.log("Tips: " + tips);
+            console.log("Totals: " + totals);
+
+
+            document.getElementById("average").innerHTML = calcAverage(totals);
+
+        }
+
+        function calcAverage(arr) {
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+            return sum / arr.length;
+        }
+    </script>
+
+</body>
+
+</html>

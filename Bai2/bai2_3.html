@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        left {
+            width: 50%;
+            float: left;
+        }
+
+        left.table {
+            float: left;
+            background-color: #64b1fe;
+            border: 2px solid black;
+        }
+
+        right {
+            width: 50%;
+            float: left;
+        }
+
+        right.table {
+            float: left;
+            background-color: #75eb75;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="text-align: center; background-color: azure;">
+        <h1>BMI Calculator</h1>
+    </header>
+    <left class="table">
+        <table>
+            <tr>
+                <th>Name: </th>
+                <td><input type="text" id="name1"></td>
+            </tr>
+            <tr>
+                <th>Height: </th>
+                <td><input type="number" id="height1"></td>
+            </tr>
+            <tr>
+                <th>Weight: </th>
+                <td><input type="number" id="weight1"></td>
+            </tr>
+            <tr>
+                <th><button onclick="calculateBMI()">Calculate BMI</button></th>
+                <td><input type="text" id="bmi1" disabled></td>
+            </tr>
+        </table>
+    </left>
+    <right class="table">
+        <table>
+            <tr>
+                <th>Name: </th>
+                <td><input type="text" id="name2"></td>
+            </tr>
+            <tr>
+                <th>Height(m): </th>
+                <td><input type="number" id="height2"></td>
+            </tr>
+            <tr>
+                <th>Weight(kg): </th>
+                <td><input type="number" id="weight2"></td>
+            </tr>
+            <tr>
+                <th><button onclick="calculateBMI()">Calculate BMI</button></th>
+                <td><input type="text" id="bmi2" disabled></td>
+            </tr>
+        </table>
+    </right>
+    <footer>
+        <div id="footer" style="text-align: center; background-color: azure;">
+
+        </div>
+    </footer>
+
+
+    <script>
+        function calculateBMI() {
+            const mark = {
+                fullName: document.getElementById("name1").value,
+                mass: Number(document.getElementById("weight1").value),
+                height: Number(document.getElementById("height1").value),
+                calcBMI: function () {
+                    this.bmi = this.mass / (this.height * this.height);
+                    return this.bmi;
+                }
+            };
+
+            const john = {
+                fullName: document.getElementById("name2").value,
+                mass: Number(document.getElementById("weight2").value),
+                height: Number(document.getElementById("height2").value),
+                calcBMI: function () {
+                    this.bmi = this.mass / (this.height * this.height);
+                    return this.bmi;
+                }
+            };
+
+            mark.calcBMI();
+            john.calcBMI();
+
+            document.getElementById("bmi1").value = mark.bmi.toFixed(2);
+            document.getElementById("bmi2").value = john.bmi.toFixed(2);
+
+            const footer = document.getElementById("footer");
+
+            if (mark.bmi > john.bmi) {
+                footer.innerHTML = `${mark.fullName}'s BMI (${mark.bmi.toFixed(2)}) is higher than ${john.fullName}'s (${john.bmi.toFixed(2)})!`;
+            } else if (john.bmi > mark.bmi) {
+                footer.innerHTML = `${john.fullName}'s BMI (${john.bmi.toFixed(2)}) is higher than ${mark.fullName}'s (${mark.bmi.toFixed(2)})!`;
+            } else {
+                footer.innerHTML = `Both have the same BMI (${mark.bmi.toFixed(2)})!`;
+            }
+
+            console.log(mark, john);
+        }
+    </script>
+
+
+</body>
+
+</html>
